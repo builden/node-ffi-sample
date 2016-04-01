@@ -1,0 +1,27 @@
+{
+  "name": "node-ffi-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "ffi": "^2.0.0",
+    "iconv-lite": "^0.4.13",
+    "ref": "^1.3.2",
+    "ref-array": "^1.1.2",
+    "ref-struct": "^1.0.2",
+    "ref-union": "^1.0.1",
+    "ref-wchar": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^2.5.3",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-react": "^4.2.3"
+  }
+}
