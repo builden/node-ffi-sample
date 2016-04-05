@@ -7,5 +7,5 @@ FFIAPI bool boolFunc(bool inBool, bool *outBool);
 FFIAPI float floatFunc(float inFloat, float *outFloat);
 FFIAPI double doubleFunc(double inDouble, double *outDouble);
 FFIAPI char charFunc(char inChar, char *outChar);
-FFIAPI bool strFunc(char *inStr, char *outStr, int outLen);
-FFIAPI bool wstrFunc(wchar_t *inStr, wchar_t *outStr, int outLen);
+FFIAPI int strFunc(char *inStr, char *outStr, int outLen);
+FFIAPI int wstrFunc(wchar_t *inStr, wchar_t *outStr, int outLen);

@@ -1,9 +1,10 @@
 const expect = require('chai').expect;
 const ffi = require('ffi');
 const ref = require('ref');
+const iconv = require('iconv-lite');
 // const ArrayType = require('ref-array');
-// const wchar = require('ref-wchar');
-// const wcharString = wchar.string;
+const wchar = require('ref-wchar');
+const wstring = wchar.string;
 
 const intPtr = ref.refType('int');
 const boolPtr = ref.refType('bool');
@@ -18,8 +19,8 @@ const lib = ffi.Library('Debug/node-ffi-sample', {
   floatFunc: ['float', ['float', floatPtr]],
   doubleFunc: ['double', ['double', doublePtr]],
   charFunc: ['char', ['char', charPtr]],
-  strFunc: ['bool', ['string', 'pointer', 'int']],
-  wstrFunc: ['bool', ['wstring', 'pointer', 'int']],
+  strFunc: ['int', ['string', 'pointer', 'int']],
+  wstrFunc: ['int', [wstring, 'pointer', 'int']],
 });
 
 // void
@@ -58,12 +59,26 @@ const actualChar = outChar.deref();
 expect(actualChar).to.equal(expectChar);
 
 // str
-/*
+const str = 'abcd';
 const MAX_PATH = 256;
-const CharArray = ArrayType(ref.types.char);
-var outString = new CharArray(MAX_PATH);
-expect(lib.strFunc('abcd', outString, MAX_PATH)).to.be.true;
-console.log(outString);
-const actualString = outString.getCString();
-console.log('actualString', actualString);
-expect(actualString).to.equal('abcd');*/
+const outStringbuf = new Buffer(MAX_PATH);
+expect(lib.strFunc(str, outStringbuf, MAX_PATH)).to.equal(str.length);
+const actualString = ref.readCString(outStringbuf, 0);
+expect(actualString).to.equal(str);
+
+// wstr
+const wstr = 'abcdef中文a';
+// const inWStringBuf = iconv.encode(new Buffer(wstr), 'utf-16', { addBOM: false });
+// console.log('inWStringBuf', inWStringBuf);
+const outWstringBuf = new Buffer(MAX_PATH * 2);
+outWstringBuf.fill(0);
+const actualLen = lib.wstrFunc(wstr, outWstringBuf, MAX_PATH);
+expect(actualLen).to.equal(wstr.length);
+console.log('outWstringBuf', outWstringBuf);
+// const actualWstring = iconv.decode(outWstringBuf, 'utf-16');
+const actualWstring = wstring.get(outWstringBuf, 0);
+console.log('actualWstring', actualWstring);
+// console.log('indexOf', outWstringBuf.indexOf('\u0000'));
+
+// const actualWstring = outWstringBuf.toString('utf16le', 0, actualLen * 2);
+expect(actualWstring).to.equal(wstr);

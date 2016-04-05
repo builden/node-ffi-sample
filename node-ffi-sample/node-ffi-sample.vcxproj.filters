@@ -24,7 +24,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base-type-exports.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DllMain.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "base-type-exports.h"
 #include <iostream>
+#include <locale>
 
 void voidFunc()
 {
@@ -41,15 +42,17 @@ char charFunc(char inChar, char *outChar)
 	return inChar;
 }
 
-bool strFunc(char *inStr, char *outStr, int outLen)
+int strFunc(char *inStr, char *outStr, int outLen)
 {
 	std::cout << "[C++] call strFunc " << inStr << std::endl;
 	strcpy_s(outStr, outLen, inStr);
-	return true;
+	return strlen(inStr);
 }
 
-bool wstrFunc(wchar_t *inStr, wchar_t *outStr, int outLen)
+int wstrFunc(wchar_t *inStr, wchar_t *outStr, int outLen)
 {
-	std::cout << "[C++] call wstrFunc" << std::endl;
-	return false;
+	std::wcout.imbue(std::locale("chs"));
+	std::wcout << "[C++] call wstrFunc " << inStr << " " << wcslen(inStr) << std::endl;
+	wcscpy_s(outStr, outLen, inStr);
+	return wcslen(inStr);
 }
