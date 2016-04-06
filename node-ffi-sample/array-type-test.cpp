@@ -18,3 +18,13 @@ void strArrFunc(char **arr, int len)
 	}
 	std::cout << std::endl;
 }
+
+void wstrArrFunc(wchar_t **arr, int len)
+{
+	std::wcout.imbue(std::locale("chs"));
+	std::cout << "[C++] wstrArrFunc ";
+	for (int i = 0; i < len; ++i) {
+		std::wcout << arr[i] << L' ';
+	}
+	std::cout << std::endl;
+}
