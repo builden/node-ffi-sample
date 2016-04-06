@@ -80,11 +80,13 @@
   <ItemGroup>
     <ClInclude Include="base-type-exports.h" />
     <ClInclude Include="exports-helper.h" />
+    <ClInclude Include="struct-type-test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="array-type-test.cpp" />
     <ClCompile Include="base-type-exports.cpp" />
     <ClCompile Include="DllMain.cpp" />
+    <ClCompile Include="struct-type-test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="array-type-test.h" />
