@@ -11,6 +11,8 @@ const boolPtr = ref.refType('bool');
 const floatPtr = ref.refType('float');
 const doublePtr = ref.refType('double');
 const charPtr = ref.refType('char');
+const wcharPtr = ref.refType(wchar);
+const wstringPtr = ref.refType(wstring);
 
 const lib = ffi.Library('Debug/node-ffi-sample', {
   voidFunc: ['void', []],
@@ -19,8 +21,9 @@ const lib = ffi.Library('Debug/node-ffi-sample', {
   floatFunc: ['float', ['float', floatPtr]],
   doubleFunc: ['double', ['double', doublePtr]],
   charFunc: ['char', ['char', charPtr]],
+  wcharFunc: [wchar, [wchar, wcharPtr]],
   strFunc: ['int', ['string', 'pointer', 'int']],
-  wstrFunc: ['int', [wstring, 'pointer', 'int']],
+  wstrFunc: ['int', [wstring, wstringPtr, 'int']],
 });
 
 // void
@@ -58,6 +61,13 @@ expect(lib.charFunc('a', outChar)).to.equal(expectChar);
 const actualChar = outChar.deref();
 expect(actualChar).to.equal(expectChar);
 
+// wchar_t
+const expectWchar = 'a'.charCodeAt(0);
+const outWchar = ref.alloc(wchar);
+expect(lib.wcharFunc('a', outWchar)).to.equal('a');
+const actualWchar = outChar.deref();
+expect(actualWchar).to.equal(expectWchar);
+
 // str
 const str = 'abcd';
 const MAX_PATH = 256;
@@ -68,17 +78,8 @@ expect(actualString).to.equal(str);
 
 // wstr
 const wstr = 'abcdef中文a';
-// const inWStringBuf = iconv.encode(new Buffer(wstr), 'utf-16', { addBOM: false });
-// console.log('inWStringBuf', inWStringBuf);
 const outWstringBuf = new Buffer(MAX_PATH * 2);
-outWstringBuf.fill(0);
 const actualLen = lib.wstrFunc(wstr, outWstringBuf, MAX_PATH);
 expect(actualLen).to.equal(wstr.length);
-console.log('outWstringBuf', outWstringBuf);
-// const actualWstring = iconv.decode(outWstringBuf, 'utf-16');
-const actualWstring = wstring.get(outWstringBuf, 0);
-console.log('actualWstring', actualWstring);
-// console.log('indexOf', outWstringBuf.indexOf('\u0000'));
-
-// const actualWstring = outWstringBuf.toString('utf16le', 0, actualLen * 2);
+const actualWstring = outWstringBuf.reinterpretUntilZeros(2).toString('utf16le');
 expect(actualWstring).to.equal(wstr);

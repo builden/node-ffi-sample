@@ -42,6 +42,13 @@ char charFunc(char inChar, char *outChar)
 	return inChar;
 }
 
+wchar_t wcharFunc(wchar_t inWchar, wchar_t *outWchar)
+{
+	std::wcout << L"[C++] call wcharFunc " << inWchar << std::endl;
+	*outWchar = inWchar;
+	return inWchar;
+}
+
 int strFunc(char *inStr, char *outStr, int outLen)
 {
 	std::cout << "[C++] call strFunc " << inStr << std::endl;
