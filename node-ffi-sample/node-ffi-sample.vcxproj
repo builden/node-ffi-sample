@@ -82,8 +82,12 @@
     <ClInclude Include="exports-helper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="array-type-test.cpp" />
     <ClCompile Include="base-type-exports.cpp" />
     <ClCompile Include="DllMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="array-type-test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

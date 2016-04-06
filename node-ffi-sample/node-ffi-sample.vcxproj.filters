@@ -29,5 +29,13 @@
     <ClCompile Include="DllMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="array-type-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="array-type-test.h">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

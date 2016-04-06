@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const ffi = require('ffi');
 const ref = require('ref');
-const iconv = require('iconv-lite');
+// const iconv = require('iconv-lite');
 // const ArrayType = require('ref-array');
 const wchar = require('ref-wchar');
 const wstring = wchar.string;
@@ -78,8 +78,8 @@ expect(actualString).to.equal(str);
 
 // wstr
 const wstr = 'abcdef中文a';
-const outWstringBuf = new Buffer(MAX_PATH * 2);
+const outWstringBuf = new Buffer(MAX_PATH * wchar.size);
 const actualLen = lib.wstrFunc(wstr, outWstringBuf, MAX_PATH);
 expect(actualLen).to.equal(wstr.length);
-const actualWstring = outWstringBuf.reinterpretUntilZeros(2).toString('utf16le');
+const actualWstring = outWstringBuf.reinterpretUntilZeros(wchar.size).toString('utf16le');
 expect(actualWstring).to.equal(wstr);

@@ -1,3 +1,5 @@
+// [参考API](http://tootallnate.github.io/ref/)
+
 const ref = require('ref');
 
 // 默认是小端

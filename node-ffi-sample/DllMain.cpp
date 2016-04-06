@@ -9,7 +9,7 @@ BOOL WINAPI DllMain(HINSTANCE module_handle, DWORD reason_for_call, LPVOID reser
 		{
 			// foobar_meow(); // Initialize your stuff or whatever
 			// Return FALSE if you don't want your module to be dynamically loaded
-			MessageBox(NULL, L"xx", L"caption", 0);
+			// MessageBox(NULL, L"xx", L"caption", 0);
 		}
 		else // Static load
 		{
